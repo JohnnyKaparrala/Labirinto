@@ -1,0 +1,1 @@
+quando for commitar no repositorio NÃO MANDA as pastas e etc. Só o arquivo .java ou .txt
