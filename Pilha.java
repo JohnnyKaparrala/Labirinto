@@ -11,11 +11,6 @@ public class Pilha <X> implements Cloneable
     protected Object[] vetor;
     private float taxaCrescimento;
 
-    /**
-     * @param tc Taxa de crescimento do vetor.
-     * @param tam Tamanho do vetor.
-     * @throws Exception Se o tamanho for menor que 0.
-     */
     protected void iniciacao ( int tam, float tc) throws Exception{
         if ( tam < 0)
                 throw new Exception("Tamanho invalido");
@@ -28,23 +23,16 @@ public class Pilha <X> implements Cloneable
         this.top = -1;
     }
 
-    /**
-     * @param tam Tamanho do vetor.
-     * @throws Exception Se o tamanho for menor que 0.
-     */
     protected void iniciacao (int tam) throws Exception{
         this.iniciacao ( tam,10);
     }
 
-    /**
-     * @throws Exception Se o tamanho for menor que 0.
-     */
     protected void iniciacao () throws Exception{
         this.iniciacao ( 10,10);
     }
 
     /**
-     * Chama iniciacao(tam, tc).
+     * Construtor do objeto.
      * @param tc Taxa de crescimento do vetor.
      * @param tam Tamanho do vetor.
      * @throws Exception Se o tamanho for menor que 0.
@@ -70,9 +58,6 @@ public class Pilha <X> implements Cloneable
         this.iniciacao ();
     }
 
-    /**
-     * Aumenta o vetor baseado na taxaCrescimento/100 (%).
-     */
     protected void cresca (){
         Object[] vet = new Object[ Math.round((float)(this.top * taxaCrescimento/100))];
 
@@ -126,10 +111,6 @@ public class Pilha <X> implements Cloneable
         this.top--;
     }
 
-    /**
-     * Verifica se o vetor eh ou nao vazio. Se for retorna true.
-     * @return O vetor eh ou nao vazio. Se for retorna true.
-     */
     protected boolean vazia (){
         return top ==-1;
     }
@@ -226,11 +207,6 @@ public class Pilha <X> implements Cloneable
         return ret;
     }
 
-    /**
-     * Metodo que cria um clone de um objeto do tipo X.
-     * @param x Objeto a ser clonado.
-     * @return O clone do objeto.
-     */
     protected X meuCloneDeX (X x){
     	X ret = null;
 
