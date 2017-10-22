@@ -1,7 +1,7 @@
 import java.lang.reflect.Method;
 
 /**
- * classe Pilha que serve pra empilhar.
+ * Vetor FIFO dinamico.
  * @author 17186, 17168, 17172.
  * @param <X> Tipo da classe.
  */
