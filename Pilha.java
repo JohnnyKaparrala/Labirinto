@@ -1,9 +1,10 @@
+package Coordenada;
 import java.lang.reflect.Method;
 
 /**
  * Vetor FILO dinamico.
  * @author 17186, 17168, 17172.
- * @param <X> Tipo da classe.
+ * @param <X> - Tipo da classe.
  */
 public class Pilha <X> implements Cloneable
 {
@@ -32,9 +33,9 @@ public class Pilha <X> implements Cloneable
     }
 
     /**
-     * Construtor do objeto.
-     * @param tc Taxa de crescimento do vetor.
-     * @param tam Tamanho do vetor.
+     * Instancia o objeto com tamanho e a taxa de crescimento passados.
+     * @param tc Taxa de crescimento do vetor. Este valor eh o percentual de crescimento da lista. Por exemplo, um valor 20 ira incrementar a lista em 20%. Nao pode ser negativo ou zero.
+     * @param tam - Valor inicial do tamanho do vetor de armazenamento da pilha. Caso a quantidade de itens na pilha ultrapasse esse valor inicial, a pilha sera aumentada em tc%. Nao pode ser menor ou igual a zero.
      * @throws Exception Se o tamanho for menor que 0.
      */
     public Pilha ( int tam, float tc) throws Exception{
@@ -42,8 +43,8 @@ public class Pilha <X> implements Cloneable
     }
 
     /**
-     * Chama iniciacao(tam). A taxaCrescimento se inicia com 10.
-     * @param tam Tamanho do vetor.
+     * Instancia o objeto com tamanho passado. A taxaCrescimento se inicia com 10.
+     * @param tam Valor inicial do tamanho do vetor de armazenamento da pilha. Caso a quantidade de itens na pilha ultrapasse esse valor inicial, a pilha sera aumentada em 10%. Nao pode ser menor ou igual a zero.
      * @throws Exception Se o tamanho for menor que 0.
      */
     public Pilha ( int tam) throws Exception{
@@ -51,7 +52,7 @@ public class Pilha <X> implements Cloneable
     }
 
     /**
-     * Chama iniciacao(). A taxaCrescimento se inicia com 10.
+     * Instancia o objeto. A taxaCrescimento e o tamanho se iniciam com 10.
      * @throws Exception Se o tamanho for menor que 0.
      */
     public Pilha () throws Exception{
@@ -68,9 +69,9 @@ public class Pilha <X> implements Cloneable
     }
 
     /**
-     * Acrescenta ao vetor a variavel de tipo X.
-     * @param x Variavel.
-     * @throws Exception Se o valor passado for nulo.
+     * Acrescenta ao vetor o objeto de tipo X ao final da pilha. A pilha sera aumentada de tamanho, caso necessario para adicionar um novo elemento.
+     * @param x Objeto a ser acrescentado na pilha. Este valor nao pode ser nulo.
+     * @throws Exception Se o objeto passado for nulo.
      */
     public void empilhe (X x) throws Exception{
         if ( x == null)
@@ -88,9 +89,9 @@ public class Pilha <X> implements Cloneable
     }
 
     /**
-     * Retorna o elemento na posicao do topo do vetor.
-     * @return O elemento na posicao do topo do vetor
-     * @throws Exception Se nao tiver o que retornar.
+     * Retorna o elemento mais recente da pilha. Este metodo nao retira o elemento da pilha.
+     * @return O ultimo elemento do vetor.
+     * @throws Exception Sera lancada uma excecao se a pilha estiver vazia.
      */
     public X getElement () throws Exception{
         if ( this.vazia())
@@ -100,8 +101,9 @@ public class Pilha <X> implements Cloneable
     }
 
     /**
-     * Remove do vetor a variavel que esta no topo dele.
+     * Remove do vetor o objeto da ultima posicao.
      * @throws Exception Se nao tiver o que remover.
+     * @return O objeto removido.
      */
     public X desempilhe () throws Exception{
         if ( this.vazia())
@@ -119,7 +121,8 @@ public class Pilha <X> implements Cloneable
     }
 
     /**
-     * 
+     * Retorna o vetor e suas posicoes usadas.
+     * @return O vetor e suas posicoes usadas.
      */
     public String toString (){
         String ret="{";
@@ -132,8 +135,8 @@ public class Pilha <X> implements Cloneable
     }
 
     /**
-     * 
-     * @return HashCode do vetor.
+     * Retorna o hash code da pilha.
+     * @return Hash code do objeto.
      */
     public int hashCode ()
     {
@@ -148,9 +151,9 @@ public class Pilha <X> implements Cloneable
     }
 
     /**
-     * Verifica se a Pilha eh igual a outro objeto.
+     * Verifica se a instancia de Fila é igual a outro objeto.
      * @param obj O objeto a ser comparado.
-     * @return true, se for igual. false se for diferente.
+     * @return true, se for igual. false, se for diferente.
      */
     public boolean equals (Object obj){
         if ( this == obj)

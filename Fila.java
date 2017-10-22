@@ -1,3 +1,4 @@
+package Coordenada;
 import java.lang.reflect.Method;
 
 /**
@@ -36,9 +37,9 @@ public class Fila <X> implements Cloneable
     }
 
     /**
-     * Construtor do objeto.
-     * @param tc Taxa de crescimento do vetor.
-     * @param tam Tamanho do vetor.
+     * Instancia o objeto com tamanho e a taxa de crescimento passados.
+     * @param tc Taxa de crescimento do vetor. Este valor eh o percentual de crescimento da lista. Por exemplo, um valor 20 ira incrementar a lista em 20%. Nao pode ser negativo ou zero.
+     * @param tam - Valor inicial do tamanho do vetor de armazenamento da fila. Caso a quantidade de itens na pilha ultrapasse esse valor inicial, a fila sera aumentada em tc%. Nao pode ser menor ou igual a zero.
      * @throws Exception Se o tamanho for menor que 0.
      */
     public Fila ( int tam, float tc) throws Exception{
@@ -46,16 +47,17 @@ public class Fila <X> implements Cloneable
     }
 
     /**
-     * Chama iniciacao(tam). A taxaCrescimento se inicia com 10.
-     * @param tam Tamanho do vetor.
+     * Instancia o objeto com tamanho passado. A taxaCrescimento se inicia com 10.
+     * @param tam Valor inicial do tamanho do vetor de armazenamento da fila. Caso a quantidade de itens na fila ultrapasse esse valor inicial, a fila sera aumentada em 10%. Nao pode ser menor ou igual a zero.
      * @throws Exception Se o tamanho for menor que 0.
      */
     public Fila ( int tam) throws Exception{
         this.iniciacao( tam );
     }
 
+
     /**
-     * Chama iniciacao(). A taxaCrescimento se inicia com 10.
+     * Instancia o objeto. A taxaCrescimento e o tamanho se iniciam com 10.
      * @throws Exception Se o tamanho for menor que 0.
      */
     public Fila () throws Exception{
@@ -89,9 +91,9 @@ public class Fila <X> implements Cloneable
     
     
     /**
-     * Acrescenta o objeto no vetor.
-     * @param x Objeto a ser acrescentado.
-     * @throws Exception
+     * Acrescenta ao vetor o objeto de tipo X ao final da fila. A fila sera aumentada de tamanho, caso necessario para adicionar um novo elemento.
+     * @param x Objeto a ser acrescentado na fila. Este valor nao pode ser nulo.
+     * @throws Exception Se o objeto passado for nulo.
      */
     public void enfileire( X x) throws Exception{
     	if ( x == null)
@@ -121,6 +123,11 @@ public class Fila <X> implements Cloneable
     	return this.qtd == 0;
     }
     
+    /**
+     * Retorna o elemento mais antigo da fila. Este metodo nao retira o elemento da fila.
+     * @return O primeiro elemento do vetor.
+     * @throws Exception Sera lancada uma excecao se a fila estiver vazia.
+     */
     public X getElemento() throws Exception{
     	if ( this.vazia())
     		throw new Exception ("Fila nula.");
@@ -129,9 +136,9 @@ public class Fila <X> implements Cloneable
     }
     
     /**
-     * Retira o elemento que se encontra em vetor[inicio].
-     * @return Objeto que se encontra em vetor[inicio].
-     * @throws Exception Se a fila estiver vazia.
+     * Remove do vetor o objeto da primeira posicao.
+     * @throws Exception Se nao tiver o que remover.
+     * @return O objeto removido.
      */
     public X desenfileire() throws Exception{
     	if ( this.vazia())
@@ -151,7 +158,8 @@ public class Fila <X> implements Cloneable
     }
     
     /**
-     * Verifica se a instancia de Fila é igual a outro objeto.
+     * Retorna o vetor e suas posicoes usadas.
+     * @return O vetor e suas posicoes usadas.
      */
     public boolean equals (Object obj){
         if ( this == obj)
@@ -179,7 +187,8 @@ public class Fila <X> implements Cloneable
     }
     
     /**
-     * Retorna o vetor e suas posicoes usadas.
+     * Retorna o hash code da fila.
+     * @return Hash code do objeto.
      */
     public String toString(){
     	String ret = "{";
@@ -201,7 +210,8 @@ public class Fila <X> implements Cloneable
     }
     
     /**
-     * Retorna o hashCode da fila.
+     * Retorna o hash code da fila.
+     * @return Hash code do objeto.
      */
     public int hashCode() {
     	int ret = 666;
@@ -235,6 +245,7 @@ public class Fila <X> implements Cloneable
     
     /**
      * Clona a Fila.
+     * @return O clone da fila.
      */
     public Object clone ()
     {

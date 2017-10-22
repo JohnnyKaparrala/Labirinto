@@ -1,3 +1,4 @@
+package Coordenada;
 
 /**
  * Classe que armazena dois numeros inteiros.

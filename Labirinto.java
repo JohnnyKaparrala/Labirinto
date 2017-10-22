@@ -1,9 +1,5 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
-package labirinto;
+package Coordenada;
+
 import java.io.BufferedReader;
 import java.io.FileReader;
 import java.io.IOException;
@@ -17,15 +13,16 @@ public class Labirinto {
     Character[][] labirinto;
     Pilha<Coordenada> caminho;
     Pilha<Fila<Coordenada>> possibilidades;
+    Coordenada atual;
+    Fila<Coordenada> fila;
     
-    private void lerArquivo (String nomeArquivo){
+    public Labirinto (String nomeArquivo){
         BufferedReader leitor = null;
         FileReader fr = null;
         try {
         
             fr = new FileReader(nomeArquivo);
             leitor = new BufferedReader(fr);
-
         
             int linhas = Integer.parseInt(leitor.readLine());
             int colunas = Integer.parseInt(leitor.readLine());
@@ -42,27 +39,15 @@ public class Labirinto {
                 }
                 i++;
             }
-        
-            try{
-                this.caminho = new Pilha<Coordenada>(linhas * colunas);
-            }
-            catch (Exception e){
-                //CADE A EXCESSÃO?
-            }
             
-            try{
-                this.possibilidades = new Pilha<Fila<Coordenada>>(linhas * colunas);
-            }
-            catch (Exception e){
-                //CADE A EXCESSÃO?
-            }
+            this.caminho = new Pilha<Coordenada>(linhas * colunas);
+            this.possibilidades = new Pilha<Fila<Coordenada>>(linhas * colunas);
         }
-        catch (IOException e){
+        catch (Exception e){
             e.printStackTrace();
         }
         finally {
             try {
-
                 if (leitor != null)
                     leitor.close();
 
@@ -74,4 +59,71 @@ public class Labirinto {
             }
         }
     }
+    
+    public boolean temEntradaESaida() throws Exception {
+    	int saidas = 0;
+    	int entradas = 0;
+    	boolean temUmDeCada = false;
+    	
+    	for ( int i = 0; i <= this.labirinto.length-1; i++)
+    		for ( int j = 0; j <= this.labirinto[i].length-1; j++) {
+    			if ( (i == 0 || i == this.labirinto.length-1) || (j == this.labirinto[i].length-1 || j == 0)) {
+	    			if ( this.labirinto[i][j] == 'E') {
+	    				entradas++;
+	    				this.atual = new Coordenada(i, j);
+	    			}    				
+	    			if ( this.labirinto[i][j] == 'S') {
+	    				saidas++;
+	    			}
+    			}
+    		}
+    	
+    	if ( entradas == 1 && saidas ==1)
+    		temUmDeCada=true;
+    	
+    	return temUmDeCada;
+    }
+    
+    public void resolva() throws Exception{
+    	if (! this.temEntradaESaida())
+    		throw new Exception("Labirinto invalido.");
+    	
+    	
+    }
+    
+    public boolean equals(Object obj) {
+    	if ( this == obj)
+			return true;
+		
+		if (!( obj instanceof Coordenada))
+			return false;
+		
+		Coordenada coord = (Coordenada)obj;
+		
+		//for de verificacao
+		
+		return true;
+    }
+    
+    public int hashCode() {
+    	int ret  = 666;
+    	
+    	for ( int i = 0; i <= this.labirinto.length-1; i++)
+    		for ( int j = 0; j <= this.labirinto[i].length-1; j++)
+    			ret = ret * 7 + this.labirinto[i][j].hashCode();
+    	
+    	return ret;
+    }
+    
+    public String toString() {
+    	StringBuilder ret = new StringBuilder();
+    	
+    	for ( int i = 0; i <= this.labirinto.length-1; i++) {
+       		for ( int j = 0; j <= this.labirinto[i].length-1; j++) {
+    			ret.append(this.labirinto[i][j]);
+    		}
+    		ret.append('\n');
+    	}    	
+    	return ret.toString();
+    } 
 }
