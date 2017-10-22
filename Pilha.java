@@ -59,11 +59,11 @@ public class Pilha <X> implements Cloneable
     }
 
     protected void cresca (){
-        Object[] vet = new Object[ Math.round((float)(this.top * taxaCrescimento/100))];
+        Object[] vet = new Object[ (int) Math.ceil((this.vetor.length * (1.0+taxaCrescimento/100)))];
 
-        for(int i = 0; i <= this.top; i++)
+        for(int i = 0; i < this.vetor.length; i++) {
             vet[i] = this.vetor[i];
-
+        }
         this.vetor = vet;
     }
 
@@ -103,21 +103,23 @@ public class Pilha <X> implements Cloneable
      * Remove do vetor a variavel que esta no topo dele.
      * @throws Exception Se nao tiver o que remover.
      */
-    public void desempilhe () throws Exception{
+    public X desempilhe () throws Exception{
         if ( this.vazia())
                 throw new Exception("Nao ha o que remover.");
 
+        X ret = (X) this.vetor[this.top];
         this.vetor[this.top] = null;
         this.top--;
+        
+        return ret;
     }
 
     protected boolean vazia (){
-        return top ==-1;
+        return this.top ==-1;
     }
 
     /**
-     * Exibe o vetor e seus elementos em forma de String.
-     * @return Os elementos do vetor.
+     * 
      */
     public String toString (){
         String ret="{";
@@ -180,6 +182,7 @@ public class Pilha <X> implements Cloneable
             throw new Exception ("Modelo ausente");
 
         this.vetor = new Object [modelo.vetor.length];
+        
         for (int i=0; i<=modelo.top; i++)
             if (this.vetor[i] instanceof Cloneable)
                 this.vetor[i] = this.meuCloneDeX((X)modelo.vetor[i]);
@@ -203,7 +206,6 @@ public class Pilha <X> implements Cloneable
         }
         catch (Exception erro)
         {}
-
         return ret;
     }
 
