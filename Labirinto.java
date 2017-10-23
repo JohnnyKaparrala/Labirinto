@@ -112,26 +112,34 @@ public class Labirinto {
         while( this.labirinto[this.atual.getX()][this.atual.getY()] != 'S'){
 
             this.fila =new Fila<Coordenada>(3);
-
-            this.enfileirePossibilidades();
+            if(modo=="Progressivo")
+                this.enfileirePossibilidades();
             
             if(this.fila.vazia())
-                 modo = "Regressivo"; 
+                 modo = "Regressivo";
+            
             
             while ( modo == "Regressivo"){
-                
+                this.atual = this.caminho.desempilhe();
+                this.labirinto[this.atual.getX()][this.atual.getY()] = ' ';
+
+                this.fila= this.possibilidades.desempilhe();
+                if(!(this.fila.vazia()))
+                    modo = "Progressivo";
             }
             
             while ( modo == "Progressivo"){
+                
                 this.atual = this.fila.desenfileire();
 
-                this.labirinto[this.atual.getX()][this.atual.getY()] = '*';
-                this.caminho.empilhe(this.atual);
-                this.possibilidades.empilhe(this.fila);
-                
-                
-                this.fila =new Fila<Coordenada>(3);
-                this.enfileirePossibilidades();////////
+                if ( this.labirinto[this.atual.getX()][this.atual.getY()] != 'S'){
+                    this.labirinto[this.atual.getX()][this.atual.getY()] = '*';
+                    this.caminho.empilhe(this.atual);
+                    this.possibilidades.empilhe(this.fila);
+         
+                    this.fila =new Fila<Coordenada>(3);
+                    this.enfileirePossibilidades();
+                }
             
                 if(this.fila.vazia())
                     modo = "Regressivo";
@@ -144,7 +152,7 @@ public class Labirinto {
         int coordY;
         
         //acima
-        coordY = this.atual.getY()-1;
+        coordY = this.atual.getY()+1;
         coordX = this.atual.getX();
         
         if ( coordY >= 0 && coordY <= this.labirinto[coordX].length-1){
@@ -162,7 +170,7 @@ public class Labirinto {
         }
         
         //abaixo
-        coordY = this.atual.getY()+1;
+        coordY = this.atual.getY()-1;
         coordX = this.atual.getX();
         
         if ( coordY >= 0 && coordY <= this.labirinto[coordX].length-1){
