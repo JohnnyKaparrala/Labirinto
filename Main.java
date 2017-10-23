@@ -7,11 +7,12 @@ public class Main {
 				System.out.println("TODO: exibir help");
 				return;
 			}*/
-			Labirinto lab = new Labirinto("../teste1.txt");/*args[0]*/
+			Labirinto lab = new Labirinto("teste1.txt");/*args[0]*/
 			
 			lab.resolva();
 			
 			System.out.println(lab.toString());
+                        System.out.println(lab.fila);
 		}
 		catch(Exception erro) {
 			erro.printStackTrace();

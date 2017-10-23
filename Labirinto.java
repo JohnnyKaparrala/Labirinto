@@ -105,11 +105,38 @@ public class Labirinto {
     public void resolva() throws Exception{
     	if (! this.temEntradaESaida())
     		throw new Exception("Labirinto invalido.");
-        this.atribuiEntrada();
-	this.fila =new Fila<Coordenada>(3);
-    	
-    	this.enfileirePossibilidades();
+        String modo = "Progressivo";
         
+        this.atribuiEntrada();
+	
+        while( this.labirinto[this.atual.getX()][this.atual.getY()] != 'S'){
+
+            this.fila =new Fila<Coordenada>(3);
+
+            this.enfileirePossibilidades();
+            
+            if(this.fila.vazia())
+                 modo = "Regressivo"; 
+            
+            while ( modo == "Regressivo"){
+                
+            }
+            
+            while ( modo == "Progressivo"){
+                this.atual = this.fila.desenfileire();
+
+                this.labirinto[this.atual.getX()][this.atual.getY()] = '*';
+                this.caminho.empilhe(this.atual);
+                this.possibilidades.empilhe(this.fila);
+                
+                
+                this.fila =new Fila<Coordenada>(3);
+                this.enfileirePossibilidades();////////
+            
+                if(this.fila.vazia())
+                    modo = "Regressivo";
+            }
+        }
     }
     
     protected void enfileirePossibilidades() throws Exception{
@@ -122,7 +149,7 @@ public class Labirinto {
         
         if ( coordY >= 0 && coordY <= this.labirinto[coordX].length-1){
             if ( this.labirinto[coordX][coordY] == ' '  || this.labirinto[coordX][coordY] == 'S')
-                this.fila.enfileire(new Coordenada(coordY, coordX));
+                this.fila.enfileire(new Coordenada(coordX, coordY));
         }
         
         //a direita
@@ -131,7 +158,7 @@ public class Labirinto {
         
         if ( coordY >= 0 && coordY <= this.labirinto[coordX].length-1){
             if ( this.labirinto[coordX][coordY] == ' '  || this.labirinto[coordX][coordY] == 'S')
-                this.fila.enfileire(new Coordenada(coordY, coordX));
+                this.fila.enfileire(new Coordenada(coordX, coordY));
         }
         
         //abaixo
@@ -140,7 +167,7 @@ public class Labirinto {
         
         if ( coordY >= 0 && coordY <= this.labirinto[coordX].length-1){
             if ( this.labirinto[coordX][coordY] == ' '  || this.labirinto[coordX][coordY] == 'S')
-                this.fila.enfileire(new Coordenada(coordY, coordX));
+                this.fila.enfileire(new Coordenada(coordX, coordY));
         }
         
         //a esquerda
@@ -149,7 +176,7 @@ public class Labirinto {
         
         if ( coordY >= 0 && coordY <= this.labirinto[coordX].length-1){
             if ( this.labirinto[coordX][coordY] == ' '  || this.labirinto[coordX][coordY] == 'S')
-                this.fila.enfileire(new Coordenada(coordY, coordX));
+                this.fila.enfileire(new Coordenada(coordX, coordY));
         }
     }
     
