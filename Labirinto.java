@@ -106,6 +106,7 @@ public class Labirinto {
     	if (! this.temEntradaESaida())
     		throw new Exception("Labirinto invalido.");
         this.atribuiEntrada();
+	this.fila =new Fila<Coordenada>(3);
     	
     	this.enfileirePossibilidades();
         
