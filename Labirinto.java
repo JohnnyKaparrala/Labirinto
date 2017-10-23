@@ -160,16 +160,27 @@ public class Labirinto {
      */
     public boolean equals(Object obj) {
     	if ( this == obj)
-			return true;
+            return true;
+        
+        if(obj == null)
+            return false;
+	if (!( obj instanceof Labirinto))
+            return false;
 		
-		if (!( obj instanceof Coordenada))
-			return false;
+	Labirinto lab = (Labirinto)obj;
 		
-		Coordenada coord = (Coordenada)obj;
+	if(!(this.labirinto.equals(lab.labirinto)))
+             return false;
+        if(!(this.caminho.equals(lab.caminho)))
+            return false; 
+        if(!(this.possibilidades.equals(lab.possibilidades)))
+            return false;
+        if(!(this.atual.equals(lab.atual)))
+            return false;
+        if(!(this.fila.equals(lab.fila)))
+            return false;
 		
-		//for de verificacao
-		
-		return true;
+	return true;
     }
     
     /**
@@ -180,10 +191,19 @@ public class Labirinto {
     	int ret  = 666;
     	
     	for ( int i = 0; i <= this.labirinto.length-1; i++)
-    		for ( int j = 0; j <= this.labirinto[i].length-1; j++)
-    			ret = ret * 7 + this.labirinto[i][j].hashCode();
-    	
-    	return ret;
+            for ( int j = 0; j <= this.labirinto[i].length-1; j++)
+                ret = ret * 7 + this.labirinto[i][j].hashCode();
+
+        
+        ret = ret*7 + this.caminho.hashCode();
+        ret = ret*7 + this.possibilidades.hashCode();
+        if(this.atual!=null)
+            ret = ret*7 +  this.atual.hashCode();
+        if(this.fila!=null)
+            ret = ret*7 + this.fila.hashCode();
+        
+           	
+        return ret; 
     }
     
     /**
