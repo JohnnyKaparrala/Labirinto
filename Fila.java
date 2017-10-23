@@ -1,4 +1,4 @@
-package Coordenada;
+package labirinto;
 import java.lang.reflect.Method;
 
 /**
@@ -132,7 +132,10 @@ public class Fila <X> implements Cloneable
     	if ( this.vazia())
     		throw new Exception ("Fila nula.");
     	
-    	return (X)this.vetor[this.inicio];
+        if ( this.vetor[this.inicio] instanceof Cloneable)
+            return this.meuCloneDeX((X)this.vetor[this.inicio]);
+        else
+            return (X)this.vetor[this.inicio];
     }
     
     /**
@@ -144,7 +147,13 @@ public class Fila <X> implements Cloneable
     	if ( this.vazia())
     		throw new Exception ("Nao ha o que remover.");
     	
-    	X ret = (X)this.vetor[inicio];
+        X ret;
+        
+    	if ( this.vetor[this.inicio] instanceof Cloneable)
+            ret = this.meuCloneDeX((X)this.vetor[this.inicio]);
+        else
+            ret = (X)this.vetor[this.inicio];
+        
     	this.vetor[inicio] = null;
     	
     	if ( this.inicio == this.vetor.length-1)

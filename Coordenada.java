@@ -1,4 +1,4 @@
-package Coordenada;
+package labirinto;
 
 /**
  * Classe que armazena dois numeros inteiros.
@@ -22,6 +22,44 @@ public class Coordenada {
 		this.x = xParametro;
 		this.y = yParametro;
 	}
+        
+        /**
+         * 
+         * @return 
+         */
+        public int getX(){            
+            return (this.x);
+        }
+        
+        /**
+         * 
+         * @param xParametro
+         * @throws Exception 
+         */
+        public void setX(int xParametro) throws Exception{
+            if ( xParametro < 0)
+		throw new Exception("Valor invalidos.");
+            this.x = xParametro;
+        }
+        
+        /**
+         * 
+         * @return 
+         */
+        public int getY(){            
+            return (this.y);
+        }
+        
+        /**
+         * 
+         * @param yParametro
+         * @throws Exception 
+         */
+        public void setY(int yParametro) throws Exception{
+            if ( yParametro < 0)
+		throw new Exception("Valor invalidos.");
+            this.y = yParametro;
+        }
 	
 	/**
      * Retorna as coordenadas.
@@ -46,7 +84,7 @@ public class Coordenada {
 	}
 	
 	/**
-     * Verifica se a instancia de Coordenada é igual a outro objeto.
+     * Verifica se a instancia de Coordenada eh igual a outro objeto.
      * @param obj O objeto a ser comparado.
      * @return true, se for igual. false, se for diferente.
      */

@@ -1,4 +1,4 @@
-package Coordenada;
+package labirinto;
 
 import java.io.BufferedReader;
 import java.io.FileReader;
@@ -16,6 +16,10 @@ public class Labirinto {
     Coordenada atual;
     Fila<Coordenada> fila;
     
+    /**
+     * 
+     * @param nomeArquivo 
+     */
     public Labirinto (String nomeArquivo){
         BufferedReader leitor = null;
         FileReader fr = null;
@@ -60,7 +64,7 @@ public class Labirinto {
         }
     }
     
-    public boolean temEntradaESaida() throws Exception {
+    protected boolean temEntradaESaida() throws Exception {
     	int saidas = 0;
     	int entradas = 0;
     	boolean temUmDeCada = false;
@@ -70,7 +74,6 @@ public class Labirinto {
     			if ( (i == 0 || i == this.labirinto.length-1) || (j == this.labirinto[i].length-1 || j == 0)) {
 	    			if ( this.labirinto[i][j] == 'E') {
 	    				entradas++;
-	    				this.atual = new Coordenada(i, j);
 	    			}    				
 	    			if ( this.labirinto[i][j] == 'S') {
 	    				saidas++;
@@ -84,13 +87,76 @@ public class Labirinto {
     	return temUmDeCada;
     }
     
+    protected void atribuiEntrada() throws Exception{
+        for ( int i = 0; i <= this.labirinto.length-1; i++)
+    		for ( int j = 0; j <= this.labirinto[i].length-1; j++) {
+    			if ( (i == 0 || i == this.labirinto.length-1) || (j == this.labirinto[i].length-1 || j == 0)) {
+	    			if ( this.labirinto[i][j] == 'E') {
+	    				this.atual = new Coordenada(i, j);
+	    			}
+    			}
+    		}
+    }
+    
+    /**
+     * 
+     * @throws Exception 
+     */
     public void resolva() throws Exception{
     	if (! this.temEntradaESaida())
     		throw new Exception("Labirinto invalido.");
+        this.atribuiEntrada();
     	
-    	
+    	this.enfileirePossibilidades();
+        
     }
     
+    protected void enfileirePossibilidades() throws Exception{
+        int coordX;
+        int coordY;
+        
+        //acima
+        coordY = this.atual.getY()-1;
+        coordX = this.atual.getX();
+        
+        if ( coordY >= 0 && coordY <= this.labirinto[coordX].length-1){
+            if ( this.labirinto[coordX][coordY] == ' '  || this.labirinto[coordX][coordY] == 'S')
+                this.fila.enfileire(new Coordenada(coordY, coordX));
+        }
+        
+        //a direita
+        coordY = this.atual.getY();
+        coordX = this.atual.getX()+1;
+        
+        if ( coordY >= 0 && coordY <= this.labirinto[coordX].length-1){
+            if ( this.labirinto[coordX][coordY] == ' '  || this.labirinto[coordX][coordY] == 'S')
+                this.fila.enfileire(new Coordenada(coordY, coordX));
+        }
+        
+        //abaixo
+        coordY = this.atual.getY()+1;
+        coordX = this.atual.getX();
+        
+        if ( coordY >= 0 && coordY <= this.labirinto[coordX].length-1){
+            if ( this.labirinto[coordX][coordY] == ' '  || this.labirinto[coordX][coordY] == 'S')
+                this.fila.enfileire(new Coordenada(coordY, coordX));
+        }
+        
+        //a esquerda
+        coordY = this.atual.getY();
+        coordX = this.atual.getX()-1;
+        
+        if ( coordY >= 0 && coordY <= this.labirinto[coordX].length-1){
+            if ( this.labirinto[coordX][coordY] == ' '  || this.labirinto[coordX][coordY] == 'S')
+                this.fila.enfileire(new Coordenada(coordY, coordX));
+        }
+    }
+    
+    /**
+     * 
+     * @param obj
+     * @return 
+     */
     public boolean equals(Object obj) {
     	if ( this == obj)
 			return true;
@@ -105,6 +171,10 @@ public class Labirinto {
 		return true;
     }
     
+    /**
+     * 
+     * @return 
+     */
     public int hashCode() {
     	int ret  = 666;
     	
@@ -115,6 +185,10 @@ public class Labirinto {
     	return ret;
     }
     
+    /**
+     * 
+     * @return 
+     */
     public String toString() {
     	StringBuilder ret = new StringBuilder();
     	

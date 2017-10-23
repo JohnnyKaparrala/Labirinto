@@ -1,4 +1,4 @@
-package Coordenada;
+package labirinto;
 import java.lang.reflect.Method;
 
 /**
@@ -97,7 +97,10 @@ public class Pilha <X> implements Cloneable
         if ( this.vazia())
                 throw new Exception("pilha vazia");
 
-        return (X)this.vetor[this.top];
+        if ( this.vetor[this.top] instanceof Cloneable)
+            return this.meuCloneDeX((X)this.vetor[this.top]);
+        else
+            return (X)this.vetor[this.top];
     }
 
     /**
@@ -109,7 +112,13 @@ public class Pilha <X> implements Cloneable
         if ( this.vazia())
                 throw new Exception("Nao ha o que remover.");
 
-        X ret = (X) this.vetor[this.top];
+        X ret;
+        
+        if ( this.vetor[this.top] instanceof Cloneable)
+            ret = this.meuCloneDeX((X)this.vetor[this.top]);
+        else
+            ret = (X)this.vetor[this.top];
+        
         this.vetor[this.top] = null;
         this.top--;
         
@@ -151,7 +160,7 @@ public class Pilha <X> implements Cloneable
     }
 
     /**
-     * Verifica se a instancia de Fila é igual a outro objeto.
+     * Verifica se a instancia de Fila ï¿½ igual a outro objeto.
      * @param obj O objeto a ser comparado.
      * @return true, se for igual. false, se for diferente.
      */
