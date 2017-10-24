@@ -141,18 +141,10 @@ public class Fila <X> implements Cloneable
     /**
      * Remove do vetor o objeto da primeira posicao.
      * @throws Exception Se nao tiver o que remover.
-     * @return O objeto removido.
      */
-    public X desenfileire() throws Exception{
+    public void desenfileire() throws Exception{
     	if ( this.vazia())
     		throw new Exception ("Nao ha o que remover.");
-    	
-        X ret;
-        
-    	if ( this.vetor[this.inicio] instanceof Cloneable)
-            ret = this.meuCloneDeX((X)this.vetor[this.inicio]);
-        else
-            ret = (X)this.vetor[this.inicio];
         
     	this.vetor[inicio] = null;
     	
@@ -162,8 +154,6 @@ public class Fila <X> implements Cloneable
     		this.inicio++;
 
     	this.qtd--;
-    	
-    	return ret;
     }
     
     /**

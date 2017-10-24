@@ -69,17 +69,45 @@ public class Labirinto {
     	int entradas = 0;
     	boolean temUmDeCada = false;
     	
-    	for ( int i = 0; i <= this.labirinto.length-1; i++)
-    		for ( int j = 0; j <= this.labirinto[i].length-1; j++) {
-    			if ( (i == 0 || i == this.labirinto.length-1) || (j == this.labirinto[i].length-1 || j == 0)) {
-	    			if ( this.labirinto[i][j] == 'E') {
-	    				entradas++;
-	    			}    				
-	    			if ( this.labirinto[i][j] == 'S') {
-	    				saidas++;
-	    			}
-    			}
+    	// procura na primeira linha
+    	for ( int i = 0; i <= this.labirinto.length-1; i++) {
+    		if ( this.labirinto[0][i] == 'E') {
+    			entradas++;
     		}
+    		if ( this.labirinto[0][i] == 'S') {
+    			saidas++;
+    		}
+    	}
+
+    	// procura na ultima linha
+		for ( int i2 = 0; i2 <= this.labirinto.length-1; i2++) {
+    		if ( this.labirinto[this.labirinto.length-1][i2] == 'E') {
+    			entradas++;
+    		}
+    		if ( this.labirinto[this.labirinto.length-1][i2] == 'S') {
+				saidas++;
+    		}
+    	}
+		
+    	// procura na primeira coluna
+		for ( int i3 = 0; i3 <= this.labirinto[0].length-1; i3++) {
+    		if ( this.labirinto[i3][0] == 'E') {
+    			entradas++;
+    		}
+    		if ( this.labirinto[i3][0] == 'S') {
+				saidas++;
+    		}
+    	}
+		
+    	// procura na ultima coluna
+		for ( int i4 = 0; i4 <= this.labirinto[0].length-1; i4++) {
+    		if ( this.labirinto[i4][this.labirinto[0].length-1] == 'E') {
+    			entradas++;
+    		}
+    		if ( this.labirinto[i4][this.labirinto[0].length-1] == 'S') {
+				saidas++;
+    		}
+    	}
     	
     	if ( entradas == 1 && saidas ==1)
     		temUmDeCada=true;
@@ -88,14 +116,39 @@ public class Labirinto {
     }
     
     protected void atribuiEntrada() throws Exception{
-        for ( int i = 0; i <= this.labirinto.length-1; i++)
-    		for ( int j = 0; j <= this.labirinto[i].length-1; j++) {
-    			if ( (i == 0 || i == this.labirinto.length-1) || (j == this.labirinto[i].length-1 || j == 0)) {
-	    			if ( this.labirinto[i][j] == 'E') {
-	    				this.atual = new Coordenada(i, j);
-	    			}
-    			}
+    	// procura na primeira linha
+    	for ( int i = 0; i <= this.labirinto.length-1; i++) {
+    		if ( this.labirinto[0][i] == 'E') {
+				this.atual = new Coordenada(0, i);
     		}
+    	}
+
+    	// procura na ultima linha
+		for ( int i2 = 0; i2 <= this.labirinto.length-1; i2++) {
+    		if ( this.labirinto[this.labirinto.length-1][i2] == 'E') {
+				this.atual = new Coordenada(this.labirinto.length-1, i2);
+    		}
+    	}
+		
+		// procura na primeira coluna
+		for ( int i3 = 0; i3 <= this.labirinto[0].length-1; i3++) {
+    		if ( this.labirinto[i3][0] == 'E') {
+    			this.atual = new Coordenada(i3, 0);
+    		}
+    		if ( this.labirinto[i3][0] == 'S') {
+    			this.atual = new Coordenada(i3, 0);
+    		}
+    	}
+		
+    	// procura na ultima coluna
+		for ( int i4 = 0; i4 <= this.labirinto[0].length-1; i4++) {
+    		if ( this.labirinto[i4][this.labirinto.length-1] == 'E') {
+    			this.atual = new Coordenada( i4, this.labirinto[0].length-1);
+    		}
+    		if ( this.labirinto[i4][this.labirinto.length-1] == 'S') {
+    			this.atual = new Coordenada(i4, this.labirinto[0].length-1);
+    		}
+    	}
     }
     
     /**
@@ -120,17 +173,20 @@ public class Labirinto {
             
             
             while ( modo == "Regressivo"){
-                this.atual = this.caminho.desempilhe();
+                this.atual = this.caminho.getElement(); 
+                this.caminho.desempilhe();
                 this.labirinto[this.atual.getX()][this.atual.getY()] = ' ';
 
-                this.fila= this.possibilidades.desempilhe();
+                this.fila = this.possibilidades.getElement(); 
+                this.possibilidades.desempilhe();
                 if(!(this.fila.vazia()))
                     modo = "Progressivo";
             }
             
             while ( modo == "Progressivo"){
                 
-                this.atual = this.fila.desenfileire();
+                this.atual = this.fila.getElemento(); 
+                this.fila.desenfileire();
 
                 if ( this.labirinto[this.atual.getX()][this.atual.getY()] != 'S'){
                     this.labirinto[this.atual.getX()][this.atual.getY()] = '*';
@@ -164,7 +220,7 @@ public class Labirinto {
         coordY = this.atual.getY();
         coordX = this.atual.getX()+1;
         
-        if ( coordY >= 0 && coordY <= this.labirinto[coordX].length-1){
+        if ( coordX >= 0 && coordX <= this.labirinto.length-1){
             if ( this.labirinto[coordX][coordY] == ' '  || this.labirinto[coordX][coordY] == 'S')
                 this.fila.enfileire(new Coordenada(coordX, coordY));
         }
@@ -182,7 +238,7 @@ public class Labirinto {
         coordY = this.atual.getY();
         coordX = this.atual.getX()-1;
         
-        if ( coordY >= 0 && coordY <= this.labirinto[coordX].length-1){
+        if ( coordX >= 0 && coordX <= this.labirinto.length-1){
             if ( this.labirinto[coordX][coordY] == ' '  || this.labirinto[coordX][coordY] == 'S')
                 this.fila.enfileire(new Coordenada(coordX, coordY));
         }

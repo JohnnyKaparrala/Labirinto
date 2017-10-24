@@ -108,21 +108,12 @@ public class Pilha <X> implements Cloneable
      * @throws Exception Se nao tiver o que remover.
      * @return O objeto removido.
      */
-    public X desempilhe () throws Exception{
+    public void desempilhe () throws Exception{
         if ( this.vazia())
                 throw new Exception("Nao ha o que remover.");
-
-        X ret;
-        
-        if ( this.vetor[this.top] instanceof Cloneable)
-            ret = this.meuCloneDeX((X)this.vetor[this.top]);
-        else
-            ret = (X)this.vetor[this.top];
         
         this.vetor[this.top] = null;
         this.top--;
-        
-        return ret;
     }
 
     protected boolean vazia (){
