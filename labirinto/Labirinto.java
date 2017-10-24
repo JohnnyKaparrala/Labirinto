@@ -70,7 +70,7 @@ public class Labirinto {
     	boolean temUmDeCada = false;
     	
     	// procura na primeira linha
-    	for ( int i = 0; i <= this.labirinto.length-1; i++) {
+    	for ( int i = 1; i <= this.labirinto.length-2; i++) { // comeca com um e vai ate o dois para nao procurar duas vezes nas vertices.
     		if ( this.labirinto[0][i] == 'E') {
     			entradas++;
     		}
@@ -80,7 +80,7 @@ public class Labirinto {
     	}
 
     	// procura na ultima linha
-		for ( int i2 = 0; i2 <= this.labirinto.length-1; i2++) {
+		for ( int i2 = 1; i2 <= this.labirinto[0].length-2; i2++) {	// comeca com um e vai ate o dois para nao procurar duas vezes nas vertices.
     		if ( this.labirinto[this.labirinto.length-1][i2] == 'E') {
     			entradas++;
     		}
@@ -90,7 +90,7 @@ public class Labirinto {
     	}
 		
     	// procura na primeira coluna
-		for ( int i3 = 0; i3 <= this.labirinto[0].length-1; i3++) {
+		for ( int i3 = 0; i3 <= this.labirinto.length-1; i3++) {
     		if ( this.labirinto[i3][0] == 'E') {
     			entradas++;
     		}
@@ -100,7 +100,7 @@ public class Labirinto {
     	}
 		
     	// procura na ultima coluna
-		for ( int i4 = 0; i4 <= this.labirinto[0].length-1; i4++) {
+		for ( int i4 = 0; i4 <= this.labirinto.length-1; i4++) {
     		if ( this.labirinto[i4][this.labirinto[0].length-1] == 'E') {
     			entradas++;
     		}
@@ -117,35 +117,29 @@ public class Labirinto {
     
     protected void atribuiEntrada() throws Exception{
     	// procura na primeira linha
-    	for ( int i = 0; i <= this.labirinto.length-1; i++) {
+    	for ( int i = 1; i <= this.labirinto.length-2; i++) {	// comeca com um e vai ate o dois para nao procurar duas vezes nas vertices.
     		if ( this.labirinto[0][i] == 'E') {
 				this.atual = new Coordenada(0, i);
     		}
     	}
 
     	// procura na ultima linha
-		for ( int i2 = 0; i2 <= this.labirinto.length-1; i2++) {
+    	for ( int i2 = 1; i2 <= this.labirinto[0].length-2; i2++) {	// comeca com um e vai ate o dois para nao procurar duas vezes nas vertices.
     		if ( this.labirinto[this.labirinto.length-1][i2] == 'E') {
-				this.atual = new Coordenada(this.labirinto.length-1, i2);
+    			this.atual = new Coordenada(this.labirinto.length-1, i2);
     		}
     	}
 		
 		// procura na primeira coluna
-		for ( int i3 = 0; i3 <= this.labirinto[0].length-1; i3++) {
+		for ( int i3 = 0; i3 <= this.labirinto.length-1; i3++) {
     		if ( this.labirinto[i3][0] == 'E') {
-    			this.atual = new Coordenada(i3, 0);
-    		}
-    		if ( this.labirinto[i3][0] == 'S') {
     			this.atual = new Coordenada(i3, 0);
     		}
     	}
 		
     	// procura na ultima coluna
-		for ( int i4 = 0; i4 <= this.labirinto[0].length-1; i4++) {
-    		if ( this.labirinto[i4][this.labirinto.length-1] == 'E') {
-    			this.atual = new Coordenada( i4, this.labirinto[0].length-1);
-    		}
-    		if ( this.labirinto[i4][this.labirinto.length-1] == 'S') {
+		for ( int i4 = 0; i4 <= this.labirinto.length-1; i4++) {
+    		if ( this.labirinto[i4][this.labirinto[0].length-1] == 'E') {
     			this.atual = new Coordenada(i4, this.labirinto[0].length-1);
     		}
     	}
@@ -157,7 +151,7 @@ public class Labirinto {
      */
     public void resolva() throws Exception{
     	if (! this.temEntradaESaida())
-    		throw new Exception("Labirinto invalido.");
+    		throw new Exception("Labirinto invalido. Ele deve conter exatamente uma entrada e uma saida.");
         String modo = "Progressivo";
         
         this.atribuiEntrada();
@@ -173,6 +167,8 @@ public class Labirinto {
             
             
             while ( modo == "Regressivo"){
+            	if ( this.caminho.vazia())
+            		throw new Exception("Saida do labirinto nao pode ser alcancada.");
                 this.atual = this.caminho.getElement(); 
                 this.caminho.desempilhe();
                 this.labirinto[this.atual.getX()][this.atual.getY()] = ' ';
