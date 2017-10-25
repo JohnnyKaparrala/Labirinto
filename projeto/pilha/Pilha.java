@@ -1,4 +1,4 @@
-package labirinto;
+package projeto.pilha;
 import java.lang.reflect.Method;
 
 /**
@@ -116,7 +116,7 @@ public class Pilha <X> implements Cloneable
         this.top--;
     }
 
-    protected boolean vazia (){
+    public boolean vazia() {
         return this.top ==-1;
     }
 
