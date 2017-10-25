@@ -1,19 +1,24 @@
 package projeto.main;
 import projeto.labirinto.Labirinto;
+import java.io.*;
 
 public class Main {
     public static void main(String[] args) {
+        
         try {
-            /*if( args.length == 0 ) {
-                    System.out.println("TODO: exibir help");
-                    return;
-            }*/
-            Labirinto lab = new Labirinto("Z:/01-POO/Labirinto/teste1.txt");/*args[0]*/
+            System.out.println("Por favor, digite o nome e o diretorio do arquivo:");
+            BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
+            String arquivo = new String(br.readLine());
+            
+            Labirinto lab = new Labirinto(arquivo);
             lab.resolva();
             System.out.println(lab.toString());
         }
+        catch ( FileNotFoundException erro){
+            System.err.println("O arquivo nao pode ser encontrado.");
+        }
         catch(Exception erro) {
-                erro.printStackTrace();
+            System.err.println(erro);
         }
     }
 }

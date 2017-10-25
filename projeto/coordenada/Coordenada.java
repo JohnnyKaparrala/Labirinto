@@ -113,7 +113,7 @@ public class Coordenada {
      * @param modelo Coordenada a ser clonada.
      * @throws Exception Se o modelo for nulo.
      */
-	public Coordenada (Coordenada modelo) throws Exception
+    public Coordenada (Coordenada modelo) throws Exception
     {
         if (modelo==null)
             throw new Exception ("Modelo ausente");
