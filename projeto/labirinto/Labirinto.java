@@ -1,4 +1,7 @@
-package labirinto;
+package projeto.labirinto;
+import projeto.fila.Fila;
+import projeto.pilha.Pilha;
+import projeto.coordenada.Coordenada;
 
 import java.io.BufferedReader;
 import java.io.FileReader;
@@ -71,16 +74,16 @@ public class Labirinto {
     	
     	// procura na primeira linha
     	for ( int i = 1; i <= this.labirinto.length-2; i++) { // comeca com um e vai ate o dois para nao procurar duas vezes nas vertices.
-    		if ( this.labirinto[0][i] == 'E') {
-    			entradas++;
-    		}
-    		if ( this.labirinto[0][i] == 'S') {
-    			saidas++;
-    		}
+            if ( this.labirinto[0][i] == 'E') {
+                    entradas++;
+            }
+            if ( this.labirinto[0][i] == 'S') {
+                    saidas++;
+            }
     	}
 
     	// procura na ultima linha
-		for ( int i2 = 1; i2 <= this.labirinto[0].length-2; i2++) {	// comeca com um e vai ate o dois para nao procurar duas vezes nas vertices.
+	for ( int i2 = 1; i2 <= this.labirinto[0].length-2; i2++) {	// comeca com um e vai ate o dois para nao procurar duas vezes nas vertices.
     		if ( this.labirinto[this.labirinto.length-1][i2] == 'E') {
     			entradas++;
     		}
@@ -90,7 +93,7 @@ public class Labirinto {
     	}
 		
     	// procura na primeira coluna
-		for ( int i3 = 0; i3 <= this.labirinto.length-1; i3++) {
+	for ( int i3 = 0; i3 <= this.labirinto.length-1; i3++) {
     		if ( this.labirinto[i3][0] == 'E') {
     			entradas++;
     		}
@@ -100,7 +103,7 @@ public class Labirinto {
     	}
 		
     	// procura na ultima coluna
-		for ( int i4 = 0; i4 <= this.labirinto.length-1; i4++) {
+	for ( int i4 = 0; i4 <= this.labirinto.length-1; i4++) {
     		if ( this.labirinto[i4][this.labirinto[0].length-1] == 'E') {
     			entradas++;
     		}
@@ -117,10 +120,10 @@ public class Labirinto {
     
     protected void atribuiEntrada() throws Exception{
     	// procura na primeira linha
-    	for ( int i = 1; i <= this.labirinto.length-2; i++) {	// comeca com um e vai ate o dois para nao procurar duas vezes nas vertices.
-    		if ( this.labirinto[0][i] == 'E') {
-				this.atual = new Coordenada(0, i);
-    		}
+    	for ( int i = 1; i <= this.labirinto.length-2; i++) { // comeca com um e vai ate o dois para nao procurar duas vezes nas vertices.
+            if ( this.labirinto[0][i] == 'E') {
+                    this.atual = new Coordenada(0, i);
+            }
     	}
 
     	// procura na ultima linha
@@ -151,7 +154,7 @@ public class Labirinto {
      */
     public void resolva() throws Exception{
     	if (! this.temEntradaESaida())
-    		throw new Exception("Labirinto invalido. Ele deve conter exatamente uma entrada e uma saida.");
+    		throw new Exception("Labirinto invalido. Ele deve conter exatamente uma entrada e uma saida, posicionadas em suas bordas.");
         String modo = "Progressivo";
         
         this.atribuiEntrada();
@@ -168,7 +171,7 @@ public class Labirinto {
             
             while ( modo == "Regressivo"){
             	if ( this.caminho.vazia())
-            		throw new Exception("Saida do labirinto nao pode ser alcancada.");
+                    throw new Exception("Saida do labirinto nao pode ser alcancada.");
                 this.atual = this.caminho.getElement(); 
                 this.caminho.desempilhe();
                 this.labirinto[this.atual.getX()][this.atual.getY()] = ' ';
@@ -181,7 +184,7 @@ public class Labirinto {
             
             while ( modo == "Progressivo"){
                 
-                this.atual = this.fila.getElemento(); 
+                this.atual = this.fila.getElement(); 
                 this.fila.desenfileire();
 
                 if ( this.labirinto[this.atual.getX()][this.atual.getY()] != 'S'){
@@ -305,7 +308,9 @@ public class Labirinto {
     			ret.append(this.labirinto[i][j]);
     		}
     		ret.append('\n');
-    	}    	
-    	return ret.toString();
+    	}
+        
+        ret.append(this.caminho.toString());//a Plha<Coordenada> inverso estava mostrando o caminho invertido (da saida para a entrada),
+    	return ret.toString();              //entao, para exibir na ordem certa, nao precisou cria-la.
     } 
 }

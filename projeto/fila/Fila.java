@@ -1,4 +1,4 @@
-package labirinto;
+package projeto.fila;
 import java.lang.reflect.Method;
 
 /**
@@ -128,7 +128,7 @@ public class Fila <X> implements Cloneable
      * @return O primeiro elemento do vetor.
      * @throws Exception Sera lancada uma excecao se a fila estiver vazia.
      */
-    public X getElemento() throws Exception{
+    public X getElement() throws Exception{
     	if ( this.vazia())
     		throw new Exception ("Fila nula.");
     	
