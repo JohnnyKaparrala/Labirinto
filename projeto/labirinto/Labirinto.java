@@ -73,7 +73,7 @@ public class Labirinto {
     	boolean temUmDeCada = false;
     	
     	// procura na primeira linha
-    	for ( int i = 1; i <= this.labirinto.length-2; i++) { // comeca com um e vai ate o dois para nao procurar duas vezes nas vertices.
+    	for ( int i = 1; i <= this.labirinto[0].length-2; i++) { // comeca com um e vai ate o dois para nao procurar duas vezes nas vertices.
             if ( this.labirinto[0][i] == 'E') {
                     entradas++;
             }
@@ -120,7 +120,7 @@ public class Labirinto {
     
     protected void atribuiEntrada() throws Exception{
     	// procura na primeira linha
-    	for ( int i = 1; i <= this.labirinto.length-2; i++) { // comeca com um e vai ate o dois para nao procurar duas vezes nas vertices.
+    	for ( int i = 1; i <= this.labirinto[0].length-2; i++) { // comeca com um e vai ate o dois para nao procurar duas vezes nas vertices.
             if ( this.labirinto[0][i] == 'E') {
                     this.atual = new Coordenada(0, i);
             }

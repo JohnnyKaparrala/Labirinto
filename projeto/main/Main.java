@@ -13,14 +13,12 @@ public class Main {
             if (! f.exists()){
                 throw new Exception ("O arquivo nao pode ser encontrado."); 
             }
-            
             Labirinto lab = new Labirinto(arquivo);
-            
             lab.resolva();
             System.out.println(lab.toString());
         }
         catch(Exception erro) {
-            System.err.println(erro);
+        	erro.printStackTrace();
         }
     }
 }
