@@ -1,5 +1,5 @@
-package projeto.main;
-import projeto.labirinto.Labirinto;
+package projeto;
+import projeto.Classes.Labirinto;
 import java.io.*;
 
 public class Main {

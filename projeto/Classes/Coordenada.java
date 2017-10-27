@@ -1,4 +1,4 @@
-package projeto.coordenada;
+package projeto.Classes;
 
 /**
  * Classe que armazena dois numeros inteiros maiores  ou igual a zero.

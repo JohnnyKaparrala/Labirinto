@@ -1,7 +1,7 @@
-package projeto.labirinto;
-import projeto.fila.Fila;
-import projeto.pilha.Pilha;
-import projeto.coordenada.Coordenada;
+package projeto.Classes;
+import projeto.Classes.Fila;
+import projeto.Classes.Pilha;
+import projeto.Classes.Coordenada;
 
 import java.io.BufferedReader;
 import java.io.FileReader;
